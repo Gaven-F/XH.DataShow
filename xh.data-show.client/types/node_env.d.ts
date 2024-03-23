@@ -1,9 +1,5 @@
-export {};
-
-declare global {
-	namespace NodeJS {
-		interface ProcessEnv {
-			readonly DEMO: string;
-		}
+declare namespace NodeJS {
+	interface ProcessEnv {
+		readonly COLOR: string | undefined;
 	}
 }
