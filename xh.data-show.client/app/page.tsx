@@ -33,17 +33,17 @@ export default function App() {
 									vertical
 									gap={8}
 									className="h-full">
-									<div className="text-lg font-bold border-0 py-2 mr-4 border-b-2 border-primary [border-style:groove]">
+									<div className="text-lg font-bold border-0 py-2 mr-4 border-b-2 border-b-color [border-style:groove]">
 										实时数据监控
 									</div>
 									<Card
-										className="h-full border-primary"
+										className="h-full border-b-color"
 										styles={CARD_HEIGHT_FULL}></Card>
 									<Card
-										className="h-full border-primary"
+										className="h-full border-b-color"
 										styles={CARD_HEIGHT_FULL}></Card>
 									<Card
-										className="h-full border-primary"
+										className="h-full border-b-color"
 										styles={CARD_HEIGHT_FULL}></Card>
 								</Flex>
 							</div>
@@ -54,11 +54,11 @@ export default function App() {
 								gap={8}
 								className="h-full">
 								<Card
-									className="flex-[3] shrink-0 border-4 border-primary [border-style:outset]"
+									className="flex-[3] shrink-0 border-8 border-b-color [border-style:inset]"
 									styles={CARD_HEIGHT_FULL}>
 									<Table className="h-full" />
 								</Card>
-								<div className="flex-[2] shrink-0 border-4 border-primary [border-style:outset]">
+								<div className="flex-[2] shrink-0 border-[16px] border-b-color bg-opacity-50 bg-slate-900 [border-style:inset]">
 									<Card
 										className="h-full"
 										styles={CARD_HEIGHT_FULL}></Card>
