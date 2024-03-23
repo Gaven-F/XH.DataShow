@@ -1,44 +1,29 @@
 "use client";
 
-import { Button, Card, ConfigProvider, theme } from "antd";
-import { DarkTheme } from "./ui/ant/dark";
+import { DarkTheme } from "@/ui/ant/dark";
+import { Header } from "@/ui/layout/header";
+import { Card, Flex } from "antd";
 
 export default function App() {
 	return (
-		<DarkTheme>
-			<Card>
-				<Button type="primary">Hello</Button>
-				<Button type="default">Hello</Button>
-				<Button type="dashed">Hello</Button>
-				<Button type="link">Hello</Button>
-				<Button type="text">Hello</Button>
+		<DarkTheme compact>
+			<Flex
+				className="h-full"
+				vertical
+				gap={16}>
+				<Card styles={{ body: { height: "100%" } }}>
+					<Header />
+				</Card>
 
-				<Button
-					danger
-					type="primary">
-					Hello
-				</Button>
-				<Button
-					danger
-					type="default">
-					Hello
-				</Button>
-				<Button
-					danger
-					type="dashed">
-					Hello
-				</Button>
-				<Button
-					danger
-					type="link">
-					Hello
-				</Button>
-				<Button
-					danger
-					type="text">
-					Hello
-				</Button>
-			</Card>
+				<Card
+					className="flex-1"
+					styles={{ body: { height: "100%" } }}>
+					<div className=" w-[600px] h-[700px] ">
+						Hello
+					</div>
+
+				</Card>
+			</Flex>
 		</DarkTheme>
 	);
 }

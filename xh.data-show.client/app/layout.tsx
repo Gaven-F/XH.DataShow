@@ -1,8 +1,14 @@
-import cyan_theme from "@/assets/antd_cyan_dark.json";
+import cyan_theme from "@/assets/json/antd_cyan_dark.json";
 import { ConfigProvider } from "antd";
+import zh_CN from "antd/locale/zh_CN";
+import dayjs from "dayjs";
 import type { Metadata } from "next";
 import { Noto_Sans_SC } from "next/font/google";
 import "./globals.css";
+import "@/assets/font/index.css"
+
+dayjs.locale("zh_CN");
+
 
 const noto = Noto_Sans_SC({ subsets: ["latin"] });
 
@@ -21,6 +27,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={noto.className}>
 				<ConfigProvider
+					locale={zh_CN}
 					theme={{
 						...cyan_theme,
 					}}>

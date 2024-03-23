@@ -4,6 +4,14 @@
 
 html,
 body {
-	@apply h-full w-full overflow-hidden text-white;
-	@apply bg-[#0c2461] bg-[linear-gradient(135deg,transparent,#4e4376)];
+	@apply h-full w-full overflow-hidden text-[#04E6DC] border-[#04E6DC];
+	@apply bg-[#0A185B] bg-[linear-gradient(135deg,transparent,#4e4376)];
+}
+
+.border_style_1 {
+	@apply [border-image:url(/img/border.png)_2_2_2_2_fill] [border-image-width:2px] border;
+}
+
+.border_style_2 {
+	@apply [border-image:url(/img/border_2.png)_30%_10%_fill/64] border px-4 py-2;
 }

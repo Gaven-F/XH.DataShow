@@ -5,7 +5,7 @@ export function DarkTheme({
 	children,
 	compact = false,
 }: {
-	children: React.ReactNode;
+	children?: React.ReactNode;
 	compact?: boolean;
 }) {
 	return (
