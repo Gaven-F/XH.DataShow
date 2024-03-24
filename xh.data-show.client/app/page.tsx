@@ -1,5 +1,6 @@
 "use client";
 
+import { CustomTable } from "@/ui/ant/customTable";
 import { DarkTheme } from "@/ui/ant/dark";
 import { Header } from "@/ui/layout/header";
 import { Card, Col, Flex, Row, Table } from "antd";
@@ -22,7 +23,7 @@ export default function App() {
 				</Card>
 
 				<Card
-					className="flex-1"
+					className="flex-1 h-full"
 					styles={{ body: { height: "100%" } }}>
 					<Row
 						gutter={8}
@@ -41,7 +42,9 @@ export default function App() {
 										styles={CARD_HEIGHT_FULL}></Card>
 									<Card
 										className="h-full border-b-color"
-										styles={CARD_HEIGHT_FULL}></Card>
+										styles={CARD_HEIGHT_FULL}>
+										<CustomTable />
+									</Card>
 									<Card
 										className="h-full border-b-color"
 										styles={CARD_HEIGHT_FULL}></Card>
@@ -56,7 +59,7 @@ export default function App() {
 								<Card
 									className="flex-[3] shrink-0 border-8 border-b-color [border-style:inset]"
 									styles={CARD_HEIGHT_FULL}>
-									<Table className="h-full" />
+									<CustomTable />
 								</Card>
 								<div className="flex-[2] shrink-0 border-[16px] border-b-color bg-opacity-50 bg-slate-900 [border-style:inset]">
 									<Card
