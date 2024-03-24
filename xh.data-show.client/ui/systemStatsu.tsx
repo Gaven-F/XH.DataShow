@@ -56,6 +56,7 @@ export function SystemStatus({ ...prop }: Prop) {
 			series: {
 				visibleMin: 1,
 				type: "treemap",
+				squareRatio: 0.5,
 				data: [
 					{
 						name: "运行中设备",
@@ -110,7 +111,7 @@ export function SystemStatus({ ...prop }: Prop) {
 							borderColor: "#0000",
 							borderWidth: 0,
 							borderRadius: 8,
-							gapWidth: 4,
+							gapWidth: 3,
 						},
 						color: ["#00ff04", "#fbff00", "#ff0d00"],
 						upperLabel: {
@@ -122,7 +123,7 @@ export function SystemStatus({ ...prop }: Prop) {
 							borderColor: "#78a3ff",
 							borderWidth: 5,
 							borderRadius: 16,
-							gapWidth: 16,
+							gapWidth: 8,
 						},
 						label: { color: "black", fontSize: 18 },
 						upperLabel: {

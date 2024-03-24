@@ -28,6 +28,12 @@ export function Header() {
 					<LoadingOutlined className="text-2xl -mr-2" />
 					<LoadingOutlined className="text-2xl -mr-2" />
 					<LoadingOutlined className="text-2xl -mr-2" />
+					<LoadingOutlined className="text-2xl -mr-2" />
+					<LoadingOutlined className="text-2xl -mr-2" />
+					<LoadingOutlined className="text-2xl -mr-2" />
+					<LoadingOutlined className="text-2xl -mr-2" />
+					<LoadingOutlined className="text-2xl -mr-2" />
+					<LoadingOutlined className="text-2xl -mr-2" />
 				</div>
 
 				<div className="text-center text-base font-bold font-[DigifaceWide] border_style_1 px-2 py-1">

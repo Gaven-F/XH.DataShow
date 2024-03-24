@@ -21,6 +21,7 @@ export function CustomTable({ columns, dataSource, ...props }: Prop) {
 		dataSource,
 		pagination: false,
 		scroll: { y: 0 },
+		rowKey: "id",
 	}));
 
 	const observer = useMemo(
@@ -48,7 +49,8 @@ export function CustomTable({ columns, dataSource, ...props }: Prop) {
 		<div
 			{...props}
 			className={props.className + ` h-full`}
-			ref={body}>
+			ref={body}
+			suppressHydrationWarning>
 			<Table {...config} />
 		</div>
 	);

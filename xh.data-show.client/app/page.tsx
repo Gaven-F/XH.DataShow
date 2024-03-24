@@ -3,7 +3,9 @@
 import { CustomTable } from "@/ui/ant/customTable";
 import { DarkTheme } from "@/ui/ant/dark";
 import { GFCard } from "@/ui/gfCard";
+import BallComponent from "@/ui/layout/bg";
 import { Header } from "@/ui/layout/header";
+import { OrderOriginCart } from "@/ui/orderOrigin";
 import { SystemStatus } from "@/ui/systemStatsu";
 import { TAHChart } from "@/ui/tahChart";
 import { UseTimeLine } from "@/ui/useTimeLine";
@@ -12,12 +14,15 @@ import {
 	PoweroffOutlined,
 	ReloadOutlined,
 } from "@ant-design/icons";
-import { Button, ConfigProvider, Flex } from "antd";
+import { Button, ConfigProvider, Flex, Tag } from "antd";
+import dayjs from "dayjs";
+import { padStart, random, sample, times, trimStart } from "lodash";
 
 export default function App() {
 	return (
 		<DarkTheme compact>
-			<div className="h-full w-full flex flex-col backdrop-blur-sm backdrop-brightness-105 backdrop-contrast-125">
+			<BallComponent />
+			<div className="h-full w-full flex flex-col backdrop-blur backdrop-brightness-105 backdrop-contrast-125">
 				<div className="relative p-2">
 					<Header />
 				</div>
@@ -34,7 +39,38 @@ export default function App() {
 										<TAHChart />
 									</GFCard>
 									<GFCard title="工程师在线状态">
-										<CustomTable />
+										<CustomTable
+											columns={[
+												{
+													title: "序号",
+													width: 60,
+													render: (_v, _r, i) => i + 1,
+												},
+												{ title: "名字", dataIndex: "id" },
+												{ title: "打卡时间", dataIndex: "unit" },
+												{
+													title: "状态",
+													render: () => <Tag color="geekblue">在线</Tag>,
+												},
+											]}
+											dataSource={times(24, (i) => ({
+												id:
+													sample([
+														"张",
+														"周",
+														"李",
+														"吴",
+														"赵",
+														"钱",
+														"孙",
+														"郑",
+													]) + "XX",
+												unit: dayjs()
+													.add(-random(1), "hour")
+													.add(-random(60), "minute")
+													.format("HH:mm"),
+											}))}
+										/>
 									</GFCard>
 									<GFCard title="控制中心">
 										<ConfigProvider componentSize="large">
@@ -64,7 +100,25 @@ export default function App() {
 							<div className="h-full flex flex-col">
 								<div className="h-full box-border border-8 border-b-color [border-style:inset]">
 									<GFCard title={"订单中心"}>
-										<CustomTable />
+										<CustomTable
+											columns={[
+												{ title: "序号", render: (_v, _r, i) => i + 1 },
+												{ title: "订单号", dataIndex: "id" },
+												{ title: "发起公司", dataIndex: "unit" },
+												{
+													title: "状态",
+													render: () => <Tag color="volcano">未完成</Tag>,
+												},
+											]}
+											dataSource={times(100, (i) => ({
+												id: padStart(random(99999999).toString(), 8, "1"),
+												unit:
+													sample(["四川", "重庆", "云南"]) +
+													"XXX" +
+													sample(["科技", "技术"]) +
+													"有限公司",
+											}))}
+										/>
 									</GFCard>
 								</div>
 								<div className="h-full box-border border-[16px] border-b-color bg-opacity-50 bg-slate-900 [border-style:inset]">
@@ -85,7 +139,11 @@ export default function App() {
 										<UseTimeLine />
 									</GFCard>
 								</div>
-								<div className="border_style_2 h-full"></div>
+								<div className="border_style_2 h-full">
+									<GFCard title="订单来源统计">
+										<OrderOriginCart />
+									</GFCard>
+								</div>
 							</Flex>
 						</div>
 					</div>
