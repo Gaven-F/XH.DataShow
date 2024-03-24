@@ -18,6 +18,7 @@ import * as echarts from "echarts/core";
 import { UniversalTransition } from "echarts/features";
 import { SVGRenderer } from "echarts/renderers";
 import { useEffect, useMemo, useRef } from "react";
+import { ResizeObserver } from "@juggle/resize-observer";
 
 interface Prop extends React.HTMLAttributes<HTMLDivElement> {}
 
