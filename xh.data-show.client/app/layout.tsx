@@ -7,6 +7,7 @@ import { Noto_Sans_SC } from "next/font/google";
 import "./globals.css";
 import "@/assets/font/index.css"
 
+
 dayjs.locale("zh_CN");
 
 

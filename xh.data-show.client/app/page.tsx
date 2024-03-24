@@ -2,73 +2,79 @@
 
 import { CustomTable } from "@/ui/ant/customTable";
 import { DarkTheme } from "@/ui/ant/dark";
+import { GFCard } from "@/ui/gfCard";
 import { Header } from "@/ui/layout/header";
-import { Card, Col, Flex, Row, Table } from "antd";
-import { CardProps } from "antd/lib/card";
-
-const CARD_HEIGHT_FULL: CardProps["styles"] = {
-	body: { height: "100%" },
-};
+import { SystemStatus } from "@/ui/systemStatsu";
+import { TAHChart } from "@/ui/tahChart";
+import {
+	HeatMapOutlined,
+	PoweroffOutlined,
+	ReloadOutlined,
+} from "@ant-design/icons";
+import { Button, Card, Col, ConfigProvider, Flex, Row } from "antd";
 
 export default function App() {
 	return (
 		<DarkTheme compact>
-			<div className="absolute">HELLO</div>
-			<Flex
-				className="h-full backdrop-blur-sm backdrop-brightness-105 backdrop-contrast-125"
-				vertical
-				gap={16}>
-				<Card styles={{ body: { height: "100%" } }}>
+			<div className="h-full flex flex-col backdrop-blur-sm backdrop-brightness-105 backdrop-contrast-125">
+				<div className="relative p-2">
 					<Header />
-				</Card>
+				</div>
 
-				<Card
-					className="flex-1 h-full"
-					styles={{ body: { height: "100%" } }}>
-					<Row
-						gutter={8}
-						className="h-full">
-						<Col span={6}>
+				<div className="basis-full h-0 p-2">
+					<div className="h-full flex gap-4">
+						<div className="h-full basis-1/4">
 							<div className="border_style_2 h-full">
-								<Flex
-									vertical
-									gap={8}
-									className="h-full">
-									<div className="text-lg font-bold border-0 py-2 mr-4 border-b-2 border-b-color [border-style:groove]">
+								<div className="h-full flex flex-col gap-2">
+									<div className="text-lg font-bold border-0 py-2 mr-4 border-b-2 border-b-color">
 										实时数据监控
 									</div>
-									<Card
-										className="h-full border-b-color"
-										styles={CARD_HEIGHT_FULL}></Card>
-									<Card
-										className="h-full border-b-color"
-										styles={CARD_HEIGHT_FULL}>
+									<GFCard title="实验室温湿度状态">
+										<TAHChart />
+									</GFCard>
+									<GFCard title="工程师在线状态">
 										<CustomTable />
-									</Card>
-									<Card
-										className="h-full border-b-color"
-										styles={CARD_HEIGHT_FULL}></Card>
-								</Flex>
-							</div>
-						</Col>
-						<Col span={12}>
-							<Flex
-								vertical
-								gap={8}
-								className="h-full">
-								<Card
-									className="flex-[3] shrink-0 border-8 border-b-color [border-style:inset]"
-									styles={CARD_HEIGHT_FULL}>
-									<CustomTable />
-								</Card>
-								<div className="flex-[2] shrink-0 border-[16px] border-b-color bg-opacity-50 bg-slate-900 [border-style:inset]">
-									<Card
-										className="h-full"
-										styles={CARD_HEIGHT_FULL}></Card>
+									</GFCard>
+									<GFCard title="控制中心">
+										<ConfigProvider componentSize="large">
+											<Flex
+												align="center"
+												justify="space-between"
+												wrap="wrap"
+												gap={8}>
+												<Button icon={<HeatMapOutlined />}>
+													登录后台数据管理
+												</Button>
+												<Button icon={<ReloadOutlined />}>数据刷新</Button>
+												<Button
+													className="w-full"
+													icon={<PoweroffOutlined />}
+													danger>
+													关闭系统
+												</Button>
+											</Flex>
+										</ConfigProvider>
+									</GFCard>
 								</div>
-							</Flex>
-						</Col>
-						<Col span={6}>
+							</div>
+						</div>
+
+						<div className="h-full w-0 basis-1/2">
+							<div className="h-full w-full grid grid-rows-2">
+								<div className="h-full w-full box-border border-8 border-b-color [border-style:inset]">
+									<GFCard title={"订单中心"}>
+										<CustomTable />
+									</GFCard>
+								</div>
+								<div className="h-full w-full box-border border-[16px] border-b-color bg-opacity-50 bg-slate-900 [border-style:inset]">
+									<GFCard title={"设备状态"}>
+										<SystemStatus />
+									</GFCard>
+								</div>
+							</div>
+						</div>
+
+						<div className="h-full basis-1/4">
 							<Flex
 								vertical
 								className="h-full"
@@ -76,10 +82,10 @@ export default function App() {
 								<div className="border_style_2 h-full"></div>
 								<div className="border_style_2 h-full"></div>
 							</Flex>
-						</Col>
-					</Row>
-				</Card>
-			</Flex>
+						</div>
+					</div>
+				</div>
+			</div>
 		</DarkTheme>
 	);
 }

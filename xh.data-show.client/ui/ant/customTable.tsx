@@ -6,6 +6,7 @@ import React, {
 	useRef,
 	useState,
 } from "react";
+import { ResizeObserver } from "@juggle/resize-observer";
 
 interface Prop extends HTMLAttributes<HTMLDivElement> {
 	columns?: TableProps["columns"];
