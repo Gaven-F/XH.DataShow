@@ -2,6 +2,7 @@ import theme from "@/assets/json/echart_cyan.json";
 import { ResizeObserver } from "@juggle/resize-observer";
 import dayjs from "dayjs";
 import {
+	BarSeriesOption,
 	ComposeOption,
 	DatasetComponentOption,
 	GridComponentOption,
@@ -9,7 +10,12 @@ import {
 	LineSeriesOption,
 	TitleComponentOption,
 } from "echarts";
-import { LineChart, ScatterChart, ScatterSeriesOption } from "echarts/charts";
+import {
+	BarChart,
+	LineChart,
+	ScatterChart,
+	ScatterSeriesOption,
+} from "echarts/charts";
 import {
 	DatasetComponent,
 	GridComponent,
@@ -37,6 +43,7 @@ export function UseTimeLine({ ...prop }: Prop) {
 
 	echarts.use([
 		TitleComponent,
+		BarChart,
 		LineChart,
 		ScatterChart,
 		GridComponent,
@@ -47,6 +54,7 @@ export function UseTimeLine({ ...prop }: Prop) {
 	]);
 
 	type Option = ComposeOption<
+		| BarSeriesOption
 		| LineSeriesOption
 		| ScatterSeriesOption
 		| TitleComponentOption
@@ -73,7 +81,6 @@ export function UseTimeLine({ ...prop }: Prop) {
 		]);
 	});
 
-
 	const option = useMemo(
 		() =>
 			({
@@ -96,10 +103,10 @@ export function UseTimeLine({ ...prop }: Prop) {
 						(it, i) =>
 							({
 								name: "设备" + String.fromCharCode(65 + i),
-								type: "scatter",
+								type: "bar",
 								data: it,
-								symbolSize: (v) => min([max([v[1] * 1.5, 5]), 30]),
-							} as ScatterSeriesOption | LineSeriesOption),
+								// symbolSize: (v) => min([max([v[1] * 1.5, 5]), 30]),
+							} as BarSeriesOption | LineSeriesOption),
 					),
 					systemData.map((it, i) => ({
 						name: "设备" + String.fromCharCode(65 + i),
@@ -139,9 +146,5 @@ export function UseTimeLine({ ...prop }: Prop) {
 		chart.setOption(option);
 	}, [observer, option]);
 
-	return (
-		<div
-			className={prop?.className + ` h-full`}
-			ref={board}></div>
-	);
+	return <div className={prop?.className + ` h-full`} ref={board}></div>;
 }

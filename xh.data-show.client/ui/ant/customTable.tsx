@@ -1,4 +1,6 @@
+import { ResizeObserver } from "@juggle/resize-observer";
 import { Table, TableProps } from "antd";
+import { TableRef } from "antd/es/table";
 import React, {
 	HTMLAttributes,
 	useEffect,
@@ -6,7 +8,6 @@ import React, {
 	useRef,
 	useState,
 } from "react";
-import { ResizeObserver } from "@juggle/resize-observer";
 
 interface Prop extends HTMLAttributes<HTMLDivElement> {
 	columns?: TableProps["columns"];
@@ -15,6 +16,7 @@ interface Prop extends HTMLAttributes<HTMLDivElement> {
 
 export function CustomTable({ columns, dataSource, ...props }: Prop) {
 	const body = useRef<HTMLDivElement>(null);
+	const table: Parameters<typeof Table>[0]["ref"] = React.useRef(null);
 
 	const [config, setConfig] = useState<TableProps>(() => ({
 		columns,
@@ -29,7 +31,7 @@ export function CustomTable({ columns, dataSource, ...props }: Prop) {
 			new ResizeObserver((entries) => {
 				setConfig((c) => {
 					// 排除table的头高度
-					c.scroll!.y = entries[0].target.clientHeight - 40;
+					c.scroll!.y = entries[0].target.clientHeight - 80;
 					return c;
 				});
 			}),
@@ -37,21 +39,48 @@ export function CustomTable({ columns, dataSource, ...props }: Prop) {
 	);
 
 	useEffect(() => {
+		let index = 1;
+		console.log(
+			"h:",
+			table.current?.nativeElement.getElementsByTagName("table"),
+		);
+
+		const height =
+			table.current?.nativeElement.getElementsByTagName("table")[1]
+				.clientHeight;
+		console.log("h:", height);
+
+		const interval = setInterval(() => {
+			if (index >= height!) {
+				index = 1;
+			} else {
+				index += 1;
+			}
+
+			table.current?.scrollTo({ top: index });
+		}, 20);
+
 		if (!body.current) return;
 		setConfig((c) => {
 			c.scroll!.y = body.current?.clientHeight;
 			return c;
 		});
 		observer.observe(body.current);
-	}, [observer]);
+
+		return () => {
+			observer.unobserve(body!.current!);
+			clearInterval(interval);
+		};
+	}, [dataSource?.length, observer]);
 
 	return (
 		<div
 			{...props}
 			className={props.className + ` h-full`}
 			ref={body}
-			suppressHydrationWarning>
-			<Table {...config} />
+			suppressHydrationWarning={true}
+		>
+			<Table {...config} ref={table} />
 		</div>
 	);
 }

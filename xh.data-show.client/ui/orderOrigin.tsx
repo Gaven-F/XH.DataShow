@@ -1,4 +1,5 @@
 import theme from "@/assets/json/echart_cyan.json";
+import { ResizeObserver } from "@juggle/resize-observer";
 import {
 	BarSeriesOption,
 	ComposeOption,
@@ -21,7 +22,6 @@ import * as echarts from "echarts/core";
 import { UniversalTransition } from "echarts/features";
 import { SVGRenderer } from "echarts/renderers";
 import { useEffect, useMemo, useRef } from "react";
-import { ResizeObserver } from "@juggle/resize-observer";
 
 interface Prop extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -123,9 +123,5 @@ export function OrderOriginCart({ ...prop }: Prop) {
 		chart.setOption(option);
 	}, [observer, option]);
 
-	return (
-		<div
-			className={prop?.className + ` h-full`}
-			ref={board}></div>
-	);
+	return <div className={prop?.className + ` h-full`} ref={board}></div>;
 }

@@ -5,11 +5,9 @@ import dayjs from "dayjs";
 import type { Metadata } from "next";
 import { Noto_Sans_SC } from "next/font/google";
 import "./globals.css";
-import "@/assets/font/index.css"
-
+import "@/assets/font/index.css";
 
 dayjs.locale("zh_CN");
-
 
 const noto = Noto_Sans_SC({ subsets: ["latin"] });
 
@@ -25,13 +23,14 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html lang="zh-cn">
 			<body className={noto.className}>
 				<ConfigProvider
 					locale={zh_CN}
 					theme={{
 						...cyan_theme,
-					}}>
+					}}
+				>
 					{children}
 				</ConfigProvider>
 			</body>
