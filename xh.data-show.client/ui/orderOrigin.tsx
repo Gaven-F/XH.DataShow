@@ -1,4 +1,4 @@
-import { OrderData } from "@/app/page";
+import { OrderData } from "@/assets/json/data";
 import theme from "@/assets/json/echart_cyan.json";
 import { ResizeObserver } from "@juggle/resize-observer";
 import {
@@ -8,10 +8,9 @@ import {
 	DatasetComponentOption,
 	GridComponentOption,
 	LegendComponentOption,
-	LineSeriesOption,
 	TitleComponentOption,
 } from "echarts";
-import { BarChart, LineChart } from "echarts/charts";
+import { BarChart } from "echarts/charts";
 import {
 	DataZoomComponent,
 	DatasetComponent,
