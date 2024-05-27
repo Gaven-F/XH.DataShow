@@ -10,25 +10,31 @@ import {
 	LineSeriesOption,
 	TitleComponentOption,
 } from "echarts";
-import {
-	BarChart,
-	LineChart,
-	ScatterChart,
-	ScatterSeriesOption,
-} from "echarts/charts";
-import {
-	DatasetComponent,
-	GridComponent,
-	LegendComponent,
-	TitleComponent,
-} from "echarts/components";
+import { BarChart, LineChart, ScatterChart, ScatterSeriesOption } from "echarts/charts";
+import { DatasetComponent, GridComponent, LegendComponent, TitleComponent } from "echarts/components";
 import * as echarts from "echarts/core";
 import { UniversalTransition } from "echarts/features";
 import { SVGRenderer } from "echarts/renderers";
-import { concat, max, min, random, round, times } from "lodash";
+import { concat, random, round, times } from "lodash";
 import { useEffect, useMemo, useRef } from "react";
 
 interface Prop extends React.HTMLAttributes<HTMLDivElement> {}
+
+const XData = [
+	"探针测试系统",
+	"超景深显微镜",
+	"X-RAY",
+	"微光显微镜 ",
+	"I/V曲线测试",
+	"聚焦离子束与扫描电镜双束系统",
+	"ESD测试系统-MK4",
+	"超声波扫描电镜",
+	"冷场扫描电镜系统",
+	"集成电路动态老化系统",
+	"ESD测试系统-Orion3",
+	"ESD测试系统-Pegasus",
+];
+const YData = [8, 55, 12, 45, 8, 23, 8, 14, 7, 33, 2, 8];
 
 export function UseTimeLine({ ...prop }: Prop) {
 	const board = useRef<HTMLDivElement>(null);
@@ -72,16 +78,40 @@ export function UseTimeLine({ ...prop }: Prop) {
 	).reverse();
 
 	const systemData = times(dataCnt.systemCnt, (i) => {
-		return dateData.map((it) => [
-			it,
-			round(
-				random(5) + random(4) + random(3) * random(1, 2, true) + random(2),
-				1,
-			),
-		]);
+		return dateData.map((it) => [it, round(random(5) + random(4) + random(3) * random(1, 2, true) + random(2), 1)]);
 	});
 
 	const option = useMemo(
+		() =>
+			({
+				xAxis: [
+					{
+						type: "category",
+						data: XData,
+						gridIndex: 0,
+						minInterval: 1,
+						axisLabel: { rotate: 45 },
+					},
+				],
+				yAxis: [{ gridIndex: 0 }],
+				legend: { top: "10%", type: "scroll" },
+				series: [
+					{ data: YData, type: "bar" },
+					{ data: YData, type: "line" },
+				],
+				grid: [
+					{
+						left: "12%",
+						top: "16%",
+						bottom: "40%",
+						right: "4%",
+					},
+				],
+			} as Option),
+		[],
+	);
+
+	const options = useMemo(
 		() =>
 			({
 				xAxis: [
@@ -140,11 +170,14 @@ export function UseTimeLine({ ...prop }: Prop) {
 
 		observer.observe(chartDom);
 
-		const chart =
-			echarts.getInstanceByDom(chartDom) || echarts.init(chartDom, theme);
+		const chart = echarts.getInstanceByDom(chartDom) || echarts.init(chartDom, theme);
 
 		chart.setOption(option);
 	}, [observer, option]);
 
-	return <div className={prop?.className + ` h-full`} ref={board}></div>;
+	return (
+		<div
+			className={prop?.className + ` h-full`}
+			ref={board}></div>
+	);
 }

@@ -1,13 +1,7 @@
 import { ResizeObserver } from "@juggle/resize-observer";
 import { Table, TableProps } from "antd";
 import { TableRef } from "antd/es/table";
-import React, {
-	HTMLAttributes,
-	useEffect,
-	useMemo,
-	useRef,
-	useState,
-} from "react";
+import React, { HTMLAttributes, useEffect, useMemo, useRef, useState } from "react";
 
 interface Prop extends HTMLAttributes<HTMLDivElement> {
 	columns?: TableProps["columns"];
@@ -40,15 +34,10 @@ export function CustomTable({ columns, dataSource, ...props }: Prop) {
 
 	useEffect(() => {
 		let index = 1;
-		console.log(
-			"h:",
-			table.current?.nativeElement.getElementsByTagName("table"),
-		);
+		// console.log("h:", table.current?.nativeElement.getElementsByTagName("table"));
 
-		const height =
-			table.current?.nativeElement.getElementsByTagName("table")[1]
-				.clientHeight;
-		console.log("h:", height);
+		const height = table.current?.nativeElement.getElementsByTagName("table")[1].clientHeight;
+		// console.log("h:", height);
 
 		const interval = setInterval(() => {
 			if (index >= height!) {
@@ -58,7 +47,7 @@ export function CustomTable({ columns, dataSource, ...props }: Prop) {
 			}
 
 			table.current?.scrollTo({ top: index });
-		}, 20);
+		}, 60);
 
 		if (!body.current) return;
 		setConfig((c) => {
@@ -68,7 +57,7 @@ export function CustomTable({ columns, dataSource, ...props }: Prop) {
 		observer.observe(body.current);
 
 		return () => {
-			observer.unobserve(body!.current!);
+			// observer.unobserve(body!.current!);
 			clearInterval(interval);
 		};
 	}, [dataSource?.length, observer]);
@@ -78,9 +67,11 @@ export function CustomTable({ columns, dataSource, ...props }: Prop) {
 			{...props}
 			className={props.className + ` h-full`}
 			ref={body}
-			suppressHydrationWarning={true}
-		>
-			<Table {...config} ref={table} />
+			suppressHydrationWarning={true}>
+			<Table
+				{...config}
+				ref={table}
+			/>
 		</div>
 	);
 }
