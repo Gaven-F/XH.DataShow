@@ -21,20 +21,19 @@ import { useEffect, useMemo, useRef } from "react";
 interface Prop extends React.HTMLAttributes<HTMLDivElement> {}
 
 const XData = [
-	"探针测试系统",
-	"超景深显微镜",
-	"X-RAY",
-	"微光显微镜 ",
-	"I/V曲线测试",
-	"聚焦离子束与扫描电镜双束系统",
-	"ESD测试系统-MK4",
-	"超声波扫描电镜",
-	"冷场扫描电镜系统",
-	"集成电路动态老化系统",
-	"ESD测试系统-Orion3",
-	"ESD测试系统-Pegasus",
+	"SPECTRAN V6 PLUS",
+	"2612B",
+	"TIVP02",
+	"VNA5000A",
+	"MSO58B 5-BW-2000",
+	"2722",
+	"16804A",
+	"2430",
+	"33250A",
+	"34405A",
+	"33220A",
 ];
-const YData = [8, 55, 12, 45, 8, 23, 8, 14, 7, 33, 2, 8];
+const YData = [20, 120, 0, 60, 120, 0, 0, 0, 0, 0, 0];
 
 export function UseTimeLine({ ...prop }: Prop) {
 	const board = useRef<HTMLDivElement>(null);
@@ -93,7 +92,7 @@ export function UseTimeLine({ ...prop }: Prop) {
 						axisLabel: { rotate: 45 },
 					},
 				],
-				yAxis: [{ gridIndex: 0 }],
+				yAxis: [{ gridIndex: 0, max: 160 }],
 				legend: { top: "10%", type: "scroll" },
 				series: [
 					{ data: YData, type: "bar" },

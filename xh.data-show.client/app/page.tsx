@@ -49,7 +49,8 @@ export default function App() {
 									<GFCard title="实验室温湿度状态">
 										<TAHChart />
 									</GFCard>
-									<GFCard title="设备工作时长统计">
+									<GFCard
+										title="设备租用时长统计">
 										<UseTimeLine />
 									</GFCard>
 								</div>
