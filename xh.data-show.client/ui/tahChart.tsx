@@ -9,12 +9,7 @@ import {
 	TitleComponentOption,
 } from "echarts";
 import { BarChart, LineChart } from "echarts/charts";
-import {
-	DatasetComponent,
-	GridComponent,
-	LegendComponent,
-	TitleComponent,
-} from "echarts/components";
+import { DatasetComponent, GridComponent, LegendComponent, TitleComponent } from "echarts/components";
 import * as echarts from "echarts/core";
 import { UniversalTransition } from "echarts/features";
 import { SVGRenderer } from "echarts/renderers";
@@ -56,7 +51,12 @@ export function TAHChart({ ...prop }: Prop) {
 		() =>
 			({
 				xAxis: {},
-				yAxis: { type: "category" },
+				yAxis: {
+					type: "category",
+					axisLabel: {
+						rotate: 0,
+					},
+				},
 				legend: {},
 				series: [
 					{ type: "bar", seriesLayoutBy: "row" },
@@ -64,13 +64,20 @@ export function TAHChart({ ...prop }: Prop) {
 				],
 				dataset: {
 					source: [
-						[, "实验室一", "实验室二", "实验室三", "实验室四", "实验室五"],
-						["温度", 12, 22, 12, 23, 23.2],
-						["湿度", 45, 45, 23, 45, 23],
+						[
+							,
+							"竞争力分析中心（西区）",
+							"可靠性测试中心（西区）",
+							"分析测试中心（IC）",
+							"设备共享平台（南区）",
+							"分析测试中心（南区）",
+						],
+						["温度", 22, 18, 21, 22, 22],
+						["湿度", 45, 45, 45, 45, 45],
 					],
 				},
 				grid: {
-					left: "16%",
+					left: "22%",
 					top: "22%",
 					bottom: "14%",
 					right: "8%",
@@ -85,8 +92,7 @@ export function TAHChart({ ...prop }: Prop) {
 
 		observer.observe(chartDom);
 
-		const chart =
-			echarts.getInstanceByDom(chartDom) || echarts.init(chartDom, theme);
+		const chart = echarts.getInstanceByDom(chartDom) || echarts.init(chartDom, theme);
 
 		chart.setOption(option);
 	}, [observer, option]);

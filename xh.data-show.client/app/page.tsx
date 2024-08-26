@@ -17,7 +17,7 @@ import "swiper/css/navigation";
 import { Autoplay, Navigation, Virtual } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
-import { OrderData } from "@/assets/json/data";
+import { OrderData, OrderDataV2 } from "@/assets/json/data";
 
 const WorkerData = [
 	{ name: "刘莉", workTime: 8, state: true, tel: "155****7210" },
@@ -30,8 +30,6 @@ const WorkerData = [
 	{ name: "文召", workTime: 6, state: true, tel: "136****6007" },
 	{ name: "徐研", workTime: 4, state: true, tel: "185****6283" },
 ].map((item, index) => ({ id: index, ...item }));
-
-
 
 export default function App() {
 	return (
@@ -51,66 +49,8 @@ export default function App() {
 									<GFCard title="实验室温湿度状态">
 										<TAHChart />
 									</GFCard>
-									<GFCard title="工程师在线状态">
-										<CustomTable
-											columns={[
-												{
-													title: "序号",
-													width: 60,
-													render: (_v, _r, i) => <div suppressHydrationWarning>{i + 1}</div>,
-												},
-												{
-													title: "名字",
-													dataIndex: "name",
-													render: (v) => <div suppressHydrationWarning>{v}</div>,
-												},
-												{
-													title: "工作时长",
-													dataIndex: "workTime",
-													render: (v) => <div suppressHydrationWarning>{v}H</div>,
-												},
-												{
-													title: "状态",
-													dataIndex: "state",
-													render: (v) => (
-														<>
-															{(v && (
-																<Tag
-																	color="geekblue"
-																	suppressHydrationWarning>
-																	在线
-																</Tag>
-															)) || (
-																<Tag
-																	color="gold"
-																	suppressHydrationWarning>
-																	离线
-																</Tag>
-															)}
-														</>
-													),
-												},
-											]}
-											dataSource={WorkerData}
-										/>
-									</GFCard>
-									<GFCard title="控制中心">
-										<ConfigProvider componentSize="large">
-											<Flex
-												align="center"
-												justify="space-between"
-												wrap="wrap"
-												gap={8}>
-												<Button icon={<HeatMapOutlined />}>登录后台数据管理</Button>
-												<Button icon={<ReloadOutlined />}>数据刷新</Button>
-												<Button
-													className="w-full"
-													icon={<PoweroffOutlined />}
-													danger>
-													关闭系统
-												</Button>
-											</Flex>
-										</ConfigProvider>
+									<GFCard title="设备工作时长统计">
+										<UseTimeLine />
 									</GFCard>
 								</div>
 							</div>
@@ -118,8 +58,8 @@ export default function App() {
 
 						<div className="h-full w-0 basis-1/2 flex-1">
 							<div className="h-full flex flex-col">
-								<div className="h-0 basis-1/2 box-border border-8 border-b-color [border-style:inset]">
-									<GFCard title={"订单中心"}>
+								<div className="h-0 basis-full box-border border-8 border-b-color [border-style:inset]">
+									<GFCard title={"共享设备清单"}>
 										<CustomTable
 											columns={[
 												{
@@ -128,25 +68,17 @@ export default function App() {
 													render: (_v, _r, i) => <div suppressHydrationWarning>{i + 1}</div>,
 												},
 												{
-													title: "订单号",
-													dataIndex: "number",
-													width: 100,
+													title: "设备名称",
+													dataIndex: "name",
 													render: (v) => <div suppressHydrationWarning>{v}</div>,
 												},
 												{
-													title: "发起公司",
-													dataIndex: "unit",
-													render: (v) => <div suppressHydrationWarning>{v}</div>,
-												},
-												{
-													title: "订单来源地",
-													dataIndex: "place",
-													width: 140,
+													title: "型号",
+													dataIndex: "num",
 													render: (v) => <div suppressHydrationWarning>{v}</div>,
 												},
 												{
 													title: "状态",
-													width: 80,
 													dataIndex: "state",
 													render: (v) => (
 														<>
@@ -154,70 +86,35 @@ export default function App() {
 																<Tag
 																	color="geekblue"
 																	suppressContentEditableWarning>
-																	已完成
+																	租界中
 																</Tag>
 															)) || (
 																<Tag
 																	color="volcano"
 																	suppressContentEditableWarning>
-																	未完成
+																	在库
 																</Tag>
 															)}
 														</>
 													),
 												},
+												{
+													title: "使用方",
+													dataIndex: "user",
+													width: 280,
+													render: (v) => <div suppressHydrationWarning>{v}</div>,
+												},
+												{
+													title: "出库时间",
+													dataIndex: "time",
+													render: (v) => <div suppressHydrationWarning>{v}</div>,
+												},
 											]}
-											dataSource={OrderData}
+											dataSource={OrderDataV2}
 										/>
 									</GFCard>
 								</div>
-								<div className="h-0 grow-0 basis-1/2 box-border border-[16px] border-b-color bg-opacity-50 bg-slate-900 [border-style:inset]">
-									{/* <GFCard title={"设备状态"}> */}
-									{/* <SystemStatus /> */}
-									<Swiper
-										className="!h-full w-full grow-0 "
-										autoplay={{ delay: 3000 }}
-										// navigation
-										spaceBetween={8}
-										slidesPerView={1}
-										virtual
-										modules={[Virtual, Autoplay, Navigation]}>
-										{times(15, (i) => (
-											<SwiperSlide
-												className="bg-sky-300 !h-full w-full bg-opacity-25 !flex place-content-center place-items-center"
-												virtualIndex={i}
-												key={i}>
-												<Image
-													priority
-													className="h-full w-full object-cover !max-h-[calc(40vh-40px)]"
-													src={`/eqimg/eqimg${i + 1}.jpg`}
-													width={1920}
-													height={1}
-													alt=""></Image>
-											</SwiperSlide>
-										))}
-									</Swiper>
-									{/* </GFCard> */}
-								</div>
 							</div>
-						</div>
-
-						<div className="h-full basis-1/4 flex-1">
-							<Flex
-								vertical
-								className="h-full"
-								gap={8}>
-								<div className="border_style_2 h-full">
-									<GFCard title="设备工作时长统计">
-										<UseTimeLine />
-									</GFCard>
-								</div>
-								<div className="border_style_2 h-full">
-									<GFCard title="订单来源统计">
-										<OrderOriginCart />
-									</GFCard>
-								</div>
-							</Flex>
 						</div>
 					</div>
 				</div>
