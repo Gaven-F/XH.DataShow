@@ -1,23 +1,17 @@
 "use client";
 
+import { OrderDataV2 } from "@/assets/json/data";
 import { CustomTable } from "@/ui/ant/customTable";
 import { DarkTheme } from "@/ui/ant/dark";
 import { GFCard } from "@/ui/gfCard";
 import BallComponent from "@/ui/layout/bg";
 import { Header } from "@/ui/layout/header";
-import { OrderOriginCart } from "@/ui/orderOrigin";
 import { TAHChart } from "@/ui/tahChart";
 import { UseTimeLine } from "@/ui/useTimeLine";
-import { HeatMapOutlined, PoweroffOutlined, ReloadOutlined } from "@ant-design/icons";
-import { Button, ConfigProvider, Flex, Tag } from "antd";
-import { times } from "lodash";
+import { Tag } from "antd";
 import "swiper/css";
 import "swiper/css/autoplay";
 import "swiper/css/navigation";
-import { Autoplay, Navigation, Virtual } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import Image from "next/image";
-import { OrderData, OrderDataV2 } from "@/assets/json/data";
 
 const WorkerData = [
 	{ name: "刘莉", workTime: 8, state: true, tel: "155****7210" },
@@ -49,8 +43,7 @@ export default function App() {
 									<GFCard title="实验室温湿度状态">
 										<TAHChart />
 									</GFCard>
-									<GFCard
-										title="设备租用时长统计">
+									<GFCard title="设备租用时长统计">
 										<UseTimeLine />
 									</GFCard>
 								</div>
@@ -85,15 +78,15 @@ export default function App() {
 														<>
 															{(v && (
 																<Tag
-																	color="geekblue"
-																	suppressContentEditableWarning>
-																	租界中
-																</Tag>
-															)) || (
-																<Tag
 																	color="volcano"
 																	suppressContentEditableWarning>
 																	在库
+																</Tag>
+															)) || (
+																<Tag
+																	color="geekblue"
+																	suppressContentEditableWarning>
+																	租借中
 																</Tag>
 															)}
 														</>
