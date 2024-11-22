@@ -2,9 +2,11 @@ import { LoadingOutlined } from "@ant-design/icons";
 import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
 import "@/assets/font/index.css";
+import useTime from "../hooks/useTime";
 
 export function Header() {
-	const [time, setTime] = useState<Dayjs>(dayjs());
+	
+	const [time, setTime] = useTime();
 
 	useEffect(() => {
 		setInterval(() => {
