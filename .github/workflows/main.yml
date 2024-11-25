@@ -1,0 +1,9 @@
+name: Publish XH DataShow
+run-name: ${{ github.actor }} is testing out Github Actions
+on: [push]
+
+jobs:
+  explore-github-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello"
