@@ -1,9 +1,49 @@
 name: Publish XH DataShow
 run-name: ${{ github.actor }} is testing out Github Actions
-on: [push]
+on:
+  schedule:
+  - cron: "30 16 * * *"
+  workflow_dispatch:
 
 jobs:
-  explore-github-actions:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo "Hello"
+    - name: checkout code
+      uses: actions/checkout@v2
+      with: 
+        ref: v2.0
+
+    - name: set nodejs
+      uses: actions/setup-node@v2
+      with:
+        node-version: "22.11.0"
+
+    - name: install dependencies
+      run: pnpm i
+
+    - name: build
+      run: pnpm build
+
+    - name: tar
+      run: tar -czvf publish.tar.gz --exclude node_modules/* *
+  
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps: 
+    - name: setup ssh
+      uses: webfactory/ssh-agent@v0.5.3
+      with: 
+        ssh-private-key: ${{ sesecrets.SSH_PRIVATE_KEY }}
+
+    - name: copy file
+      run: |
+        scp publish.tar.gz $USERNAME@$SERVER_IP:/usr/share/xh.datashow/
+
+    - name: extract file
+      run: |
+        ssh $USERNAME@$SERVER_IP 'tar -xzf /usr/share/xh.datashow/publish.tar.gz'
+      
